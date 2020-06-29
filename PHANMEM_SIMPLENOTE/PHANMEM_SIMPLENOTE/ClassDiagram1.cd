@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PHANMEM_SIMPLENOTE.Controllers.NoteControllers">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAEEAAAABAAAAAAAAAAAAAAAABAAAAgAAAAAQAA=</HashCode>
+      <FileName>Controllers\NoteControllers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PHANMEM_SIMPLENOTE.Controllers.TagControllers">
+    <Position X="4.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAQAAABAAABAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Controllers\TagControllers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PHANMEM_SIMPLENOTE.Models.DbofSimpleNoteEntities">
+    <Position X="7.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAEAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DbEntityCreateSimpleNote.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PHANMEM_SIMPLENOTE.Models.Note">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAKAAAAAAQAAAAQAAIAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Note.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PHANMEM_SIMPLENOTE.Models.Tag">
+    <Position X="2.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Tag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PHANMEM_SIMPLENOTE.Program" Collapsed="true">
+    <Position X="11.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PHANMEM_SIMPLENOTE.Form1">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BQCoBAQACCBCIpAEBHiTIN9iAgyBAYSASgKADQICAQQ=</HashCode>
+      <FileName>Views\Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PHANMEM_SIMPLENOTE.Properties.Resources" Collapsed="true">
+    <Position X="11.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PHANMEM_SIMPLENOTE.Properties.Settings" Collapsed="true">
+    <Position X="11.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PHANMEM_SIMPLENOTE.Views.FormHelp">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAAACAAAACAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Views\FormHelp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

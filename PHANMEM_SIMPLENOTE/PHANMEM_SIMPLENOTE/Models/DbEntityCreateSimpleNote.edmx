@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DbofSimpleNoteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="SoThuTu" />
+          </Key>
+          <Property Name="SoThuTu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TieuDe" Type="nvarchar(max)" />
+          <Property Name="NoiDung" Type="nvarchar(max)" />
+          <Property Name="ThongTin" Type="datetime" />
+          <Property Name="Rac" Type="bit" />
+          <Property Name="PintoTop" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TenTag" />
+          </Key>
+          <Property Name="TenTag" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TagNotes">
+          <Key>
+            <PropertyRef Name="Tag_TenTag" />
+            <PropertyRef Name="Note_SoThuTu" />
+          </Key>
+          <Property Name="Tag_TenTag" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Note_SoThuTu" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_TagNotes_dbo_Note_Note_SoThuTu">
+          <End Role="Note" Type="Self.Note" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TagNotes" Type="Self.TagNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Note">
+              <PropertyRef Name="SoThuTu" />
+            </Principal>
+            <Dependent Role="TagNotes">
+              <PropertyRef Name="Note_SoThuTu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TagNotes_dbo_Tag_Tag_TenTag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TagNotes" Type="Self.TagNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="TenTag" />
+            </Principal>
+            <Dependent Role="TagNotes">
+              <PropertyRef Name="Tag_TenTag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbofSimpleNoteModelStoreContainer">
+          <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TagNotes" EntityType="Self.TagNotes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_TagNotes_dbo_Note_Note_SoThuTu" Association="Self.FK_dbo_TagNotes_dbo_Note_Note_SoThuTu">
+            <End Role="Note" EntitySet="Note" />
+            <End Role="TagNotes" EntitySet="TagNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TagNotes_dbo_Tag_Tag_TenTag" Association="Self.FK_dbo_TagNotes_dbo_Tag_Tag_TenTag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TagNotes" EntitySet="TagNotes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbofSimpleNoteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="SoThuTu" />
+          </Key>
+          <Property Name="SoThuTu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TieuDe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ThongTin" Type="DateTime" Precision="3" />
+          <Property Name="Rac" Type="Boolean" />
+          <Property Name="PintoTop" Type="Boolean" />
+          <NavigationProperty Name="Tags" Relationship="Self.TagNotes" FromRole="Note" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TenTag" />
+          </Key>
+          <Property Name="TenTag" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Notes" Relationship="Self.TagNotes" FromRole="Tag" ToRole="Note" />
+        </EntityType>
+        <Association Name="TagNotes">
+          <End Role="Note" Type="Self.Note" Multiplicity="*" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DbofSimpleNoteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Notes" EntityType="Self.Note" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <AssociationSet Name="TagNotes" Association="Self.TagNotes">
+            <End Role="Note" EntitySet="Notes" />
+            <End Role="Tag" EntitySet="Tags" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbofSimpleNoteModelStoreContainer" CdmEntityContainer="DbofSimpleNoteEntities">
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="DbofSimpleNoteModel.Note">
+              <MappingFragment StoreEntitySet="Note">
+                <ScalarProperty Name="SoThuTu" ColumnName="SoThuTu" />
+                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="ThongTin" ColumnName="ThongTin" />
+                <ScalarProperty Name="Rac" ColumnName="Rac" />
+                <ScalarProperty Name="PintoTop" ColumnName="PintoTop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="DbofSimpleNoteModel.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="TenTag" ColumnName="TenTag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="TagNotes" TypeName="DbofSimpleNoteModel.TagNotes" StoreEntitySet="TagNotes">
+            <EndProperty Name="Note">
+              <ScalarProperty Name="SoThuTu" ColumnName="Note_SoThuTu" />
+            </EndProperty>
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="TenTag" ColumnName="Tag_TenTag" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

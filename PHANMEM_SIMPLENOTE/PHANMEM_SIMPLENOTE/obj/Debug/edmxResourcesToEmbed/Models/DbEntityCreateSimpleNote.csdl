@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbofSimpleNoteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Note">
+    <Key>
+      <PropertyRef Name="SoThuTu" />
+    </Key>
+    <Property Name="SoThuTu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TieuDe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ThongTin" Type="DateTime" Precision="3" />
+    <Property Name="Rac" Type="Boolean" />
+    <Property Name="PintoTop" Type="Boolean" />
+    <NavigationProperty Name="Tags" Relationship="Self.TagNotes" FromRole="Note" ToRole="Tag" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="TenTag" />
+    </Key>
+    <Property Name="TenTag" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Notes" Relationship="Self.TagNotes" FromRole="Tag" ToRole="Note" />
+  </EntityType>
+  <Association Name="TagNotes">
+    <End Role="Note" Type="Self.Note" Multiplicity="*" />
+    <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="DbofSimpleNoteEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Notes" EntityType="Self.Note" />
+    <EntitySet Name="Tags" EntityType="Self.Tag" />
+    <AssociationSet Name="TagNotes" Association="Self.TagNotes">
+      <End Role="Note" EntitySet="Notes" />
+      <End Role="Tag" EntitySet="Tags" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

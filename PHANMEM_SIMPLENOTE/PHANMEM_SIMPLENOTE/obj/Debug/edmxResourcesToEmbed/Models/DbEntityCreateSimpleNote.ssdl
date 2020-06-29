@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbofSimpleNoteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Note">
+    <Key>
+      <PropertyRef Name="SoThuTu" />
+    </Key>
+    <Property Name="SoThuTu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TieuDe" Type="nvarchar(max)" />
+    <Property Name="NoiDung" Type="nvarchar(max)" />
+    <Property Name="ThongTin" Type="datetime" />
+    <Property Name="Rac" Type="bit" />
+    <Property Name="PintoTop" Type="bit" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="TenTag" />
+    </Key>
+    <Property Name="TenTag" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TagNotes">
+    <Key>
+      <PropertyRef Name="Tag_TenTag" />
+      <PropertyRef Name="Note_SoThuTu" />
+    </Key>
+    <Property Name="Tag_TenTag" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Note_SoThuTu" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_TagNotes_dbo_Note_Note_SoThuTu">
+    <End Role="Note" Type="Self.Note" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TagNotes" Type="Self.TagNotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Note">
+        <PropertyRef Name="SoThuTu" />
+      </Principal>
+      <Dependent Role="TagNotes">
+        <PropertyRef Name="Note_SoThuTu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_TagNotes_dbo_Tag_Tag_TenTag">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TagNotes" Type="Self.TagNotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="TenTag" />
+      </Principal>
+      <Dependent Role="TagNotes">
+        <PropertyRef Name="Tag_TenTag" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbofSimpleNoteModelStoreContainer">
+    <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TagNotes" EntityType="Self.TagNotes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_TagNotes_dbo_Note_Note_SoThuTu" Association="Self.FK_dbo_TagNotes_dbo_Note_Note_SoThuTu">
+      <End Role="Note" EntitySet="Note" />
+      <End Role="TagNotes" EntitySet="TagNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_TagNotes_dbo_Tag_Tag_TenTag" Association="Self.FK_dbo_TagNotes_dbo_Tag_Tag_TenTag">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="TagNotes" EntitySet="TagNotes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
