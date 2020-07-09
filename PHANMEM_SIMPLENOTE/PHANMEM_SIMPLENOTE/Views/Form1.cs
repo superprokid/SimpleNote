@@ -570,78 +570,55 @@ namespace PHANMEM_SIMPLENOTE
             if (e.KeyCode == Keys.Enter)
             {
 
-                if (this.txbTypeTag.Text == "" )
                 {
-                    return;
-                }
-                if (this.listViewNoiDung.SelectedItems.Count <= 0)
-                    return;
 
-                List<Tag> get = TagControllers.getAllTag();
-                foreach (Tag tentag in get)
-                {
-                    if (this.txbTypeTag.Text == tentag.TenTag)
+                    if (this.txbTypeTag.Text == "")
                     {
-                        goto b2;
-                    }
-                }
-
-                Tag gettag = new Tag();
-                gettag.TenTag = this.txbTypeTag.Text;
-                TagControllers.addTag(gettag);
-                goto b3;
-
-            b2:
-                int id = this.listViewNoiDung.SelectedItems[0].Index;
-                //int i1 = this.listViewNoiDung.SelectedItems[1].Index;
-                int stt = idList[id];
-                Note getnote = NoteControllers.getNote(stt);
-                foreach (Tag temptag in getnote.Tags)
-                {
-                    if (this.txbTypeTag.Text == temptag.TenTag)
-                    {
-                        this.txbTypeTag.Text = "";
                         return;
                     }
+                    if (this.listViewNoiDung.SelectedItems.Count <= 0)
+                        return;
+
+                    List<Tag> get = TagControllers.getAllTag();
+                    Tag gettag = new Tag();
+                    gettag.TenTag = this.txbTypeTag.Text;
+                    TagControllers.addTag(gettag);
+
+                    Tag tagforadd = TagControllers.getoneTag(this.txbTypeTag.Text);
+                    int selectt = this.listViewNoiDung.SelectedItems[0].Index;
+                    //int i2 = this.listViewNoiDung.SelectedItems[1].Index;
+                    int chose = idList[selectt]++;
+                    Note getchose = NoteControllers.getNote(chose);
+                    getchose.Tags.Add(tagforadd);
+
+                    Note temp = new Note();
+                    temp.SoThuTu = getchose.SoThuTu;
+                    temp.TieuDe = getchose.TieuDe;
+                    temp.NoiDung = getchose.NoiDung;
+                    temp.ThongTin = getchose.ThongTin;
+                    temp.Rac = getchose.Rac;
+                    temp.PintoTop = getchose.PintoTop;
+                    foreach (Tag fina in getchose.Tags)
+                    {
+                        temp.Tags.Add(fina);
+                    }
+
+                    NoteControllers.deleteNote(getchose);
+                    NoteControllers.addNote(getchose);
+
+                    string show = "";
+                    foreach (Tag forshow in getchose.Tags)
+                    {
+                        show = show + forshow.TenTag + " ";
+                    }
+                    this.rtbShowTag.Text = show;
+                    this.rtbred.Text = show;
+
+                    this.txbTypeTag.Text = "";
+
                 }
-                goto b3;
-
-            b3:
-                Tag tagforadd = TagControllers.getoneTag(this.txbTypeTag.Text);
-                int selectt = this.listViewNoiDung.SelectedItems[0].Index;
-                //int i2 = this.listViewNoiDung.SelectedItems[1].Index;
-                int chose = idList[selectt]++;
-                Note getchose = NoteControllers.getNote(chose);
-                getchose.Tags.Add(tagforadd);
-
-                Note temp = new Note();
-                temp.SoThuTu = getchose.SoThuTu;
-                temp.TieuDe = getchose.TieuDe;
-                temp.NoiDung = getchose.NoiDung;
-                temp.ThongTin = getchose.ThongTin;
-                temp.Rac = getchose.Rac;
-                temp.PintoTop = getchose.PintoTop;
-                foreach (Tag fina in getchose.Tags)
-                {
-                    temp.Tags.Add(fina);
-                }
-
-                NoteControllers.deleteNote(getchose);
-                NoteControllers.addNote(getchose);
-
-                string show = "";
-                foreach (Tag forshow in getchose.Tags)
-                {
-                    show = show + forshow.TenTag + " ";
-                }
-                this.rtbShowTag.Text = show;
-                this.rtbred.Text = show;
-
-                this.txbTypeTag.Text = "";
-
             }
         }
-
         private void newNoteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (StateofMenu == false)
